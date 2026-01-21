@@ -84,6 +84,9 @@
 #elif defined(_XMCMTB_EVK_XMC7200_)
 #include <sys/sysdepend/xmc_mtb/evk_xmc7200/machine.h>
 
+#elif defined(_TOSHIBA_BSP_SBK_M4L4_)
+#include <sys/sysdepend/toshiba_bsp/sbk_m4l4/machine.h>
+
 #endif
 
 /* ===== C compiler dependencies definitions ============================= */
@@ -99,6 +102,17 @@
 #define _VECTOR_ENTRY(name) .word name
 #define _WEAK_ENTRY(name) .weak name
 
-#endif /* __GNUC__ */
+#elif defined(__ICCARM__)
+
+#define Inline static inline
+#define Asm __asm
+#define Noinit(decl) __no_init decl
+#define	Section(decl,name) decl @ #name
+#define WEAK_FUNC __weak
+
+#define _VECTOR_ENTRY(name) .word name
+#define _WEAK_ENTRY(name) .weak name
+
+#endif /* __GNUC__ or __ICCARM__ */
 
 #endif /* _MTKBSP_SYS_MACHINE_H_ */
